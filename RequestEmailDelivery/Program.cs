@@ -39,7 +39,6 @@ namespace RequestEmailDelivery
 					 basicProperties: null,
 					 body: body);
 
-
 			Console.WriteLine($" [x] Message successfully sent! '{type}':'{message}'");
 			Console.WriteLine(" Press [enter] to exit.");
 			Console.ReadLine();

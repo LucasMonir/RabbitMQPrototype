@@ -9,6 +9,7 @@ namespace RabbitMQPrototype
 	{
 		public static void Main(string[] args)
 		{
+			// Boilerplate, comum em toda aplicação com rabbitmq
 			var exchangeName = "log_types";
 			var factory = new ConnectionFactory { HostName = "localhost" };
 			using var connection = factory.CreateConnection();
@@ -26,10 +27,8 @@ namespace RabbitMQPrototype
 			}
 
 			foreach (var key in args)
-			{
 				channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: key);
-			}
-
+			
 			Console.WriteLine("All set up! Waiting for messages...");
 
 			var consumer = new EventingBasicConsumer(channel);
