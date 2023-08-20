@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RabbitMQPrototype": {
+      "commandName": "Project",
+      "commandLineArgs": "info"
+    }
+  }
+}
