@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Info_Logs.log" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Info_Logs.log">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
   </ItemGroup>
 

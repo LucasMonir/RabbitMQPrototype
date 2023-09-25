@@ -7,6 +7,8 @@ namespace RabbitMQPrototype
 {
 	public class RabbitReceiver
 	{
+		const string LOG_FILE_PATH = "C:\\Users\\Monir\\Desktop\\Code\\RabbitMQPrototype\\RabbitMQPrototype\\RabbitMQPrototype\\";
+		const string LOG_FILE_NAME = "Info_Logs.log";
 		public static void Main(string[] args)
 		{
 			// Boilerplate, comum em toda aplicação com rabbitmq
@@ -18,17 +20,12 @@ namespace RabbitMQPrototype
 			channel.ExchangeDeclare(exchange: exchangeName, type: ExchangeType.Direct);
 			var queueName = channel.QueueDeclare().QueueName;
 
-			if (args.Length < 1)
-			{
-				Console.WriteLine("Please run the program declaring at least one topic: program [topic]");
-				Console.ReadLine();
-				Environment.ExitCode = 1;
-				return;
-			}
-
+			// Validando se programa foi inicializado com um tipo de tópico
+			CheckArgs(args);
+			
 			foreach (var key in args)
 				channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: key);
-			
+
 			Console.WriteLine("All set up! Waiting for messages...");
 
 			var consumer = new EventingBasicConsumer(channel);
@@ -53,10 +50,24 @@ namespace RabbitMQPrototype
 			Console.ReadLine();
 		}
 
+		private static void CheckArgs(string[] args)
+		{
+			if (args.Length < 1)
+			{
+				Console.WriteLine("Please run the program declaring at least one topic: program [topic]");
+				Console.ReadLine();
+
+				Environment.Exit(1);
+			}
+		}
+
 		// Abstração de serviço de Logging
 		private static void LogRecording(string message)
 		{
-			Thread.Sleep(2500);
+			var log = $"{DateTime.Now} -- ## {message} \n";
+	
+			File.AppendAllText(LOG_FILE_PATH + LOG_FILE_NAME, log);
+			
 			Console.WriteLine($"Message stored: {message}");
 		}
 

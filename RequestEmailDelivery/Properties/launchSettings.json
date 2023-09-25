@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RequestEmailDelivery": {
+      "commandName": "Project",
+      "commandLineArgs": "info"
+    }
+  }
+}
